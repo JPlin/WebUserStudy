@@ -1,0 +1,24 @@
+.left {
+    width: 30%;
+    margin: 20px;
+    position: fixed;
+}
+
+.right {
+    float: right;
+    width: 50%;
+    margin: 2% 8%;
+}
+
+#sortable {
+    list-style-type: none;
+    margin: 0 auto;
+    padding: 0;
+}
+
+#sortable li {
+    margin: 0 3px 3px 3px;
+    padding: 0.4em;
+    padding-left: 1.5em;
+    font-size: 1.4em;
+}
