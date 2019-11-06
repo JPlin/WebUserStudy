@@ -10,6 +10,18 @@
     margin: 2% 8%;
 }
 
+.up {
+    margin: 20px;
+}
+
+.bottom{
+    margin: 20px;
+}
+
+.black-long-big{
+    font-size:5em;
+}
+
 #sortable {
     list-style-type: none;
     margin: 0 auto;
@@ -17,8 +29,13 @@
 }
 
 #sortable li {
-    margin: 0 3px 3px 3px;
+    /* margin: 0 3px 3px 3px;
     padding: 0.4em;
-    padding-left: 1.5em;
+    padding-left: 1.5em; */
     font-size: 1.4em;
+}
+
+#sortable li img:hover{
+    /* width: 500px; */
+    cursor: pointer;
 }
