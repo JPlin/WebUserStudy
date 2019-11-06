@@ -18,8 +18,9 @@
     margin: 20px;
 }
 
-.black-long-big{
-    font-size:5em;
+.box-default{
+    border: 1px solid red;
+    background-color: lightblue;
 }
 
 #sortable {

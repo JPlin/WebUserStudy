@@ -157,6 +157,7 @@
     })
 
     function ChangeUI(group_obj) {
+        $("#message-block").hide()
         $('.progress-bar').text((group_index + 1) + '/' + meta_images.length)
         $('.progress-bar').css('width', 100 * (group_index + 1) / meta_images.length + '%').attr('aria-valuenow', group_index + 1)
         $('.source').attr('src', group_obj['source'])
