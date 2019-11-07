@@ -34,3 +34,18 @@ function loadJSON(callback) {
     };
     xobj.send(null);
 }
+/**
+ * random select images
+ */
+
+function random_select(data_list, num) {
+    var result = [];
+    var count = data_list.length;
+    for (var i = 0; i < num; i++) {
+        var index = ~~(Math.random() * count) + i;
+        result[i] = data_list[index];
+        data_list[index] = data_list[i];
+        count--;
+    }
+    return result;
+}

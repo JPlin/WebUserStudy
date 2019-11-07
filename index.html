@@ -86,35 +86,30 @@
 
 <script type="text/javascript">
     var group_index = -1;
-    var global_save = [];
+    var num = 2;
     $(function () {
+        // UI 
         $("#sortable").sortable();
+        $("#message-block").hide()
+        $('.prevpage').prop('disabled', true);
+        meta_images = random_select(meta_images, num)
+
+        // data
         $('.nextpage').click();
         $('.progress-bar').attr('aria-valuemin', 1).attr('aria-valuemax', meta_images.length)
-        $('.prevpage').prop('disabled', true);
-        $("#message-block").hide()
     })
 
     // save user input and go to next page
     $('.nextpage').on('click', function () {
         if (group_index != -1) {
-            // save result 
-            var temp = [];
-            var t;
-            $('.customerlist .customeritem').each(function (index, element) {
-                t = $(this).children();
-                temp.push({ "id": $(t[0]).attr('src') });
-            })
-            global_save.push(temp)
-            console.log(temp)
+            save_current_state()
         }
         // all done
         if (group_index == meta_images.length - 1) {
             $("#message-block").fadeIn()
             // get IP address
             $.getJSON("https://jsonip.com?callback=?", function (data) {
-                exportRaw(data.ip + '.txt', JSON.stringify(global_save));
-                global_save.pop()
+                exportRaw(data.ip + '.txt', JSON.stringify(meta_images));
             });
             return;
         }
@@ -136,18 +131,9 @@
 
 
     $('.prevpage').on('click', function () {
-        // update meta data order
-        var temp_results = [];
-        var t
-        $('.customerlist .customeritem').each(function (index, element) {
-            t = $(this).children();
-            temp_results.push($(t[0]).attr('src'))
-        })
-        // update meta data order
-        meta_images[group_index]['results'] = temp_results
+        save_current_state()
         console.log(meta_images[group_index]);
 
-        global_save.pop();
         group_index--;
         $('.nextpage').text('Next Page').removeClass('btn-warning').addClass('btn-success')
         if (group_index == 0) {
@@ -168,6 +154,21 @@
             $('.customerlist').append('<li class="customeritem"><img src=' + url + ' class="shadow p-3 mb-5 bg-white rounded" alt = "..." width="350px"></li >');
         }
         $("ul.customerlist").sortable();
+    }
+
+    function save_current_state() {
+        // save result 
+        var temp = {
+            "source": $(".source").attr('src'),
+            "target": $(".target").attr('src'),
+            "results": []
+        };
+        var t;
+        $('.customerlist .customeritem').each(function (index, element) {
+            t = $(this).children();
+            temp.results.push($(t[0]).attr('src'));
+        })
+        meta_images[group_index] = temp
     }
 </script>
 
