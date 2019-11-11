@@ -89,7 +89,7 @@
     var num = 2;
     $(function () {
         // UI 
-        $("#sortable").sortable();
+        // $("#sortable").sortable();
         $("#message-block").hide()
         $('.prevpage').prop('disabled', true);
         meta_images = random_select(meta_images, num)
@@ -108,9 +108,13 @@
         if (group_index == meta_images.length - 1) {
             $("#message-block").fadeIn()
             // get IP address
-            $.getJSON("https://jsonip.com?callback=?", function (data) {
-                exportRaw(data.ip + '.txt', JSON.stringify(meta_images));
-            });
+            // $.getJSON("https://jsonip.com?callback=?", function (data) {
+            //     exportRaw(data.ip + '.txt', JSON.stringify(meta_images));
+            // });
+            // return;
+            let r = Math.random().toString(36).substring(7);
+            console.log("random", r);
+            exportRaw(r + '.txt', JSON.stringify(meta_images));
             return;
         }
 
@@ -150,10 +154,21 @@
         $('.target').attr('src', group_obj['target'])
         var url_list = group_obj['results']
         $('.customerlist li').remove();
+        var flag = 1;
         for (var url of url_list) {
-            $('.customerlist').append('<li class="customeritem"><img src=' + url + ' class="shadow p-3 mb-5 bg-white rounded" alt = "..." width="350px"></li >');
+            $('.customerlist').append('<li class="customeritem"><h2>' + flag + '</h2><img src=' + url + ' class="shadow p-3 mb-5 bg-white rounded" alt = "..." width="350px"></li >');
+            flag++;
         }
-        $("ul.customerlist").sortable();
+        $("ul.customerlist").sortable({
+            stop: function (event, ui) {
+                var flag = 1;
+                console.log("dragend " + flag);
+                $('.customerlist .customeritem h2').each(function (index, element) {
+                    $(this).text(flag);
+                    flag++;
+                });
+            }
+        });
     }
 
     function save_current_state() {
@@ -165,7 +180,7 @@
         };
         var t;
         $('.customerlist .customeritem').each(function (index, element) {
-            t = $(this).children();
+            t = $(this).find("img");
             temp.results.push($(t[0]).attr('src'));
         })
         meta_images[group_index] = temp
