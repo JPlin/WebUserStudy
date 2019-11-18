@@ -20,4 +20,22 @@
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
   firebase.analytics();
+
+  //save data to firebase
+  function saveToFirebase(email) {
+    var emailObject = {
+      email: email
+    };
+
+    firebase.database().ref('subscription-entries').push().set(emailObject)
+      .then(function (snapshot) {
+        success(); // some success method
+        console.log('success send firebase')
+      }, function (error) {
+        console.log('error' + error);
+        error(); // some error method
+      });
+  }
+
+  saveToFirebase({ 'me': 'jplin' });
 </script>

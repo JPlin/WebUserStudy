@@ -65,4 +65,45 @@
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
     <script type="text/javascript" src="js/util.js"></script>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+         https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-analytics.js"></script>
+
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyDdYIyFMiK7XXJf3sgMGiLWEr1U-vAR_RY",
+            authDomain: "userstudydatabase.firebaseapp.com",
+            databaseURL: "https://userstudydatabase.firebaseio.com",
+            projectId: "userstudydatabase",
+            storageBucket: "userstudydatabase.appspot.com",
+            messagingSenderId: "933503788607",
+            appId: "1:933503788607:web:55ed7868477ed6c4583a8a",
+            measurementId: "G-C43DPBFYC7"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        firebase.analytics();
+
+        //save data to firebase
+        function saveToFirebase(email) {
+            var emailObject = {
+                email: email
+            };
+
+            firebase.database().ref('subscription-entries').push().set(emailObject)
+                .then(function (snapshot) {
+                    success(); // some success method
+                    console.log('success send firebase')
+                }, function (error) {
+                    console.log('error' + error);
+                    error(); // some error method
+                });
+        }
+
+        saveToFirebase({ 'me': 'jplin' });
+    </script>
 </body>
