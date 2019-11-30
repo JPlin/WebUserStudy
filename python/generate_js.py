@@ -2,6 +2,7 @@ import numpy as np
 import glob
 import os
 import json
+import argparse
 
 
 class GenJS(object):
@@ -36,3 +37,14 @@ class GenJS(object):
 
         # with open('meta_images.js', 'w') as f:
         pass
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='Process some integers.')
+    parser.add_argument('integers',
+                        metavar='N',
+                        type=int,
+                        nargs='+',
+                        help='an integer for the accumulator')
+    args = parser.parse_args()
+    genjs = GenJS()
